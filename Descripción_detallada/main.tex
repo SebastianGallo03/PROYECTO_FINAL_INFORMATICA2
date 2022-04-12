@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \Huge
+        \textbf{Descripción detallada}
+            
+        \vspace{0.5cm}
+        \LARGE
+       \textit{ Informática II}
+            
+        \vspace{1.5cm}
+            
+        \textbf{Juan Sebastian Garavito Gallo\\
+        Jesus David Mercado Machado}
+            
+        \vfill
+            
+        \vspace{0.8cm}
+            
+        \Large
+        Departamento de Ingeniería Electrónica y Telecomunicaciones\\
+        Universidad de Antioquia\\
+        Medellín\\
+        2022
+            
+    \end{center}
+\end{titlepage}
+
+\tableofcontents
+
+
+\newpage
+\section{INTRODUCCIÓN}
+This is Polombia es un juego con cierto sentido del humor, parodiando de alguna manera una eterna guerra entre bandos politicos, viendose unos personajes como los villanos y otros como los salvadores ante dicha amenaza.
+
+En un planeta lejano hay un pais llamado polombia, el cual lleva siendo gobernado por la misma persona. El cual ha sido gobernado por el mismo emperador hace tiempo . El  sintio el verdadero terror, al enterarse que el poderoso lord  petrosky y su imperio castrochavista, amenaza con su llegada, su supremacía. Su última esperanza es nuestro héroe Porky quien peleará valientemente para evitar la invasión del malévolo imperio castrochavista..
+
+\section{DESCRIPCIÓN DEL JUEGO}
+Nuestro heróe porky debera ir superando a sus enemigos, debido a que cada que colisione con alguno de ellos perderá una vida, para avanzar en el juego también podrá disparar un proyectil para destruir los enemigos e ir sumando puntos.
+
+El juego contará con cuatro personajes:
+\begin{itemize}
+\item Porky: Nuestro heróe que tendrá la capacidad de desplazarse en todas las direcciones y de disparar proyectiles.\\
+\item Enemigo 1: Este tendra un movimiento de caida libre, apareciendo en cualquier parte de la parte superior pantalla.\\
+\item Enemigo 2: tendrá un movimiento armónico simple, con diferentes amplitudes y aparecera en la parte de la derecha de la pantalla, de manera aleatoria en Y  .\\
+\item Enemigo 3: Tendra un movimiento circular, cuyo radio podra ser diferente.\\
+
+El juego tambien contara con tres escenerios en los cuales irá aumentando la dificultad. Según vaya avanando el jugador aparecerán enemigos con mucha más frecuencia y como se mencionaba anteriormente, las amplitudes y radios de dos de los enemigos empezarán a variar, tomando asi un movimiento mas impredecible
+
+El proyecto contará con una implemetnación de multijugador.
+
+
+
+\end{itemize}
+\newpage
+\section{CLASES}
+\begin{itemize}
+\item ENEMIGOS: En la misma clase tendremos a todos los enemigos juntos, ya que ellos tiene practicamente las mismas propiedades. entre ellos solo varían su tipo de movimiento que se pueden modelar facilmente dentro de la misma clase haciendo uso de condicionales.\\
+\item FONDOS-NIVELES:Esta será la clase del manejo de frames y sprites de fondos.\\
+\item PUNTAJE: Se encargará de llevar el control como su nombre lo indica del puntaje además de esto saber quien esta jugando (Jugador 1 o 2) y sus respectivas vidas.\\
+\item JUGADOR: Esta clase se encargará de moldear los movimientos del personaje principal, cuando colisiona, su animación, tiempo de animación. tambien guardará los sprites respectivos.\\ 
+\item PROYECTIL: Esta clase será la encargada de cargar el sprite del proyectil y verificar si esta fuera de la pantalla visible para eliminarla.\\
+\item MAINWINDOW:Será la clase que se encargue relativamente de todo el manejo del juego como la escena, el guardado, el spawn delos enemigos, la interaccion con el usuario en el menú con ayuda de los botones.
+
+\end{itemize}
+\newpage
+\section{TAREAS}
+\begin{itemize}
+\item Buscar los recursos requeridos para la escenografia del juego tales como los fondos, los sprites para los personajes, sonidos etc.\\
+\item Una vez con los recursos necesarios diseñar el menú principal y los diferentes escenarios.\\
+\item implementar las funciones de guardado, niveles, vidas y puntajes del juego.\\
+\item Implimentar los sistemas fisicos modelando asi el comportamiento de los personajes del juego.\\
+\item Agregar una opción de multijugador.\\
+\item Revisar, corregir y mejorar.\\
+\end{itemize}
+\end{document}
