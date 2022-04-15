@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.0, 2022-04-13T22:49:18. -->
+<!-- Written by QtCreator 7.0.0, 2022-04-15T00:05:33. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -240,12 +240,14 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/jmerc/Documents/GitHub/PROYECTO_FINAL_INFORMATICA2/Proyecto-final-This-polombia/PROYECTO_FINAL_INFORMATICA2.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/jmerc/Documents/GitHub/PROYECTO_FINAL_INFORMATICA2/Proyecto-final-This-polombia/PROYECTO_FINAL_INFORMATICA2.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/jmerc/Downloads/Proyecto_Final_Info2-master/pruebas/PROYECTO_FINAL_INFORMATICA2/build-PROYECTO_FINAL_INFORMATICA2-Desktop_Qt_5_12_2_MinGW_32_bit-Debug</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

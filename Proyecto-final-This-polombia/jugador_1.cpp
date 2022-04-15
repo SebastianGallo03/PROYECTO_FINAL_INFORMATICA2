@@ -14,7 +14,7 @@ Jugador_1::Jugador_1( int n ){
 
         }
 
-        num_plane = n ;     //Asiganamos el valor del sprite del personaje
+        num_av = n ;     //Asiganamos el valor del sprite del personaje
 
         animacion = new QTimer() ;
 
@@ -24,7 +24,7 @@ Jugador_1::Jugador_1( int n ){
 
         caida_libre = new QTimer() ;
 
-        connect( caida_libre , SIGNAL( timeout() ) , this , SLOT( caida_libre_avion() ) ) ;
+        connect( caida_libre , SIGNAL( timeout() ) , this , SLOT( caida_libre_av() ) ) ;
 
         caida_libre->start( T ) ;
 
@@ -33,12 +33,15 @@ Jugador_1::Jugador_1( int n ){
     void Jugador_1::set_imagen_jugador( int n ){switch( n ){            //Alistamos las imagenes del personaje para ser mostradas en pantalla
 
         case 1:
-        { sprite_actual = sprite_jugador.copy( 80*frame , 0 , 80 , 48 ) ;
+        {   tam_x_av = 80 ;
+            sprite_actual = sprite_jugador.copy( 80*frame , 0 , 80 , 48 ) ;
             setPixmap( sprite_actual.scaled( 80 , 48 ) ) ;
-        }break;
+        }
+            break;
 
         case 2:
-        { sprite_actual = sprite_jugador.copy( 64*frame , 0 , 64 , 48 ) ;
+        {   tam_x_av = 64 ;
+            sprite_actual = sprite_jugador.copy( 64*frame , 0 , 64 , 48 ) ;
 
             setPixmap( sprite_actual.scaled( 64 , 48 ) ) ;
 
@@ -56,7 +59,7 @@ Jugador_1::Jugador_1( int n ){
 
         }
 
-        set_imagen_jugador( num_plane ) ;
+        set_imagen_jugador( num_av ) ;
 
     }
 
@@ -91,6 +94,52 @@ Jugador_1::Jugador_1( int n ){
 
             GAME_OVER = true ;
 
+
+        }
+
+
+    }
+    void Jugador_1::movimientos_personaje( int num ){
+
+        pos_0x = this->x() ;
+
+        pos_0y = this->y() ;
+
+        bool cond1 = pos_0y - 5 > 0 ;
+
+        bool cond2 = (pos_0x + tam_x_av ) + 5 < 800 ;
+
+        if( cond1 && cond2 ){       //Condiciones para los boredes derecho y superior de la pantalla
+
+
+                if( num == 0 ){       //arriba
+
+
+                  this->setPos( pos_0x , pos_0y - 5 ) ;
+
+                }
+                else if( num == 1 ){      //abajo
+
+                     this->setPos( pos_0x , pos_0y + 5 ) ;
+                }
+                else if( num == 2 ){      //izquierda
+
+                     this->setPos( pos_0x - 5 , pos_0y ) ;
+                }
+                else if( num == 3 ){          //derecha
+
+                     this->setPos( pos_0x + 5 , pos_0y ) ;
+                }
+                else if( num == 4 ){        //diagonal derecha - arriba
+
+                    this->setPos( pos_0x + 5 , pos_0y - 5 ) ;
+                }
+                else if( num == 5 ){        //diagonal abajo - izq
+
+                    this->setPos( pos_0x - 5 , pos_0y + 5 ) ;
+                }
+
+                n = 0 ;
 
         }
 

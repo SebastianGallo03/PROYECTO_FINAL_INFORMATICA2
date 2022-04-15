@@ -14,7 +14,7 @@
 #include <QFile>
 #include <time.h>
 #include <QKeyEvent>
-
+#include "enemigos.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -29,6 +29,7 @@ public:
  void Guardar_nuevo_jugador() ; //Funcion que guarda el nuevo jugador ingresado
  void Cargar_partida_1jugador() ;        //Funcion que lee el archivo de guardado
  void nivel_1() ;        //Configuracion para el nivel 1 del juego
+ void keyPressEvent( QKeyEvent *teclas);
    ~MainWindow();
 private slots:
  //Slots de los botones de la interfaz
@@ -43,6 +44,9 @@ void on_cargar_partida_clicked();
 void set_interfaz_1() ;
 void on_aceptar_clicked();
 void perdiste() ;
+void barra_press() ;
+void spawn_enemigo() ;
+void on_instrucciones_clicked();
 
 
 private:
@@ -52,6 +56,7 @@ juego *GAME ;   //Puntero al Juego principal
 QMediaPlayer *music , *msc_2 ;  //Punteros que almacenaran la musica del menu y cuando se esté jugando
 QSoundEffect *efecto_boton_click ;      //Puntero para loe efectos de sonido de click del menu
 QMessageBox * msg_box ;     //Puntero para crear los message box necesarios
-QTimer *end_game ;
+QTimer *end_game , *timer_spawn_enemy ;
+enemigos *ENEmigos ;
 };
 #endif // MAINWINDOW_H

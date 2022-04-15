@@ -31,6 +31,16 @@ void MainWindow::setMenu(){     //Funcion en la cual se inicializa y muestra el 
      ui->cargar_partida->setGeometry( (GAME->tam_X/2)-(GAME->btx/2) , ((GAME->tam_Y + 3*(GAME->bty))/2)-(GAME->bty/2) , GAME->btx , GAME->bty ) ;
 
      //Boton Regresar
+     ui->regresar->setGeometry( 20 , (GAME->tam_Y) - 70 , 50 , 50 ) ;
+     ui->regresar->hide() ;
+     //Boton instrucciones
+
+       ui->instrucciones->setGeometry( 20 , (GAME->tam_Y) - 70 , 50 , 50 ) ;
+      //Texto Instrucciones
+
+         ui->texto_instrucciones->setGeometry( 190 , 190 , 400 , 250 ) ;
+
+         ui->texto_instrucciones->hide() ;
 
      //Botonos cargar y nueva partida
 
@@ -75,7 +85,10 @@ ui->load_partida_txt->setGeometry( 283 , 200 , 230 , 50 ) ;
 ui->load_partida_txt->hide() ;
 
 
+//Texto GAME OVER
+ui->Game_final->setGeometry( 135 , 100 , 500 , 150 ) ;
 
+ ui->Game_final->hide() ;
 
 
  //Configuracion de la musica de menu
@@ -119,15 +132,15 @@ void MainWindow::Guardar_nuevo_jugador(){
         //Condiciones para elegir el personaje
     if( ui->buttonGroup->button( 1 )->isChecked() ){        //Se revisa qué personaje se elegió
 
-           GAME->select_plane = 1 ;
+           GAME->select_av = 1 ;
 
         }else if( ui->buttonGroup->button( 2 )->isChecked() ){
 
-           GAME->select_plane = 2 ;
+           GAME->select_av = 2 ;
         }
         else{
 
-           GAME->select_plane = 1 ;     //Por defecto, pone el 1er personaje
+           GAME->select_av = 1 ;     //Por defecto, pone el 1er personaje
         }
 
 
@@ -136,7 +149,7 @@ void MainWindow::Guardar_nuevo_jugador(){
 
         if( GAME->nombre_jugador == "" ){
 
-           int random_num = rand()%1000 ;      //Si NO se ingreso un nombre, se pone Random# y un numero aleatorio
+         int random_num = rand()%100000 ;      //Si NO se ingreso un nombre, se pone Random# y un numero aleatorio
 
            GAME->nombre_jugador = "Random#" + QString::number( random_num , 10 ) ;
 
@@ -161,7 +174,7 @@ void MainWindow::Guardar_nuevo_jugador(){
                          arch_2.close() ;
                      }//fin if arch2
         if( GAME->existente_name ){     //Si el nombre no existe anteriormente, es creado y guardado
-            out << GAME->nombre_jugador.replace( " ", "_" ) << " Avn:" << GAME->select_plane << " N:" << GAME->nivel_jugador << " P:" << GAME->puntos_jugador << ";" ;
+            out << GAME->nombre_jugador.replace( " ", "_" ) << " Av:" << GAME->select_av << " N:" << GAME->nivel_jugador << " P:" << GAME->puntos_jugador << ";" ;
 
                    out << "\n" ;
 
@@ -233,7 +246,7 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    ui->cargar_partida->show() ;
                    GAME->val_btn_presionado = 0 ;      //Se asigana 0 a la variable
-
+                   ui->instrucciones->hide() ;
 
                    }
                void MainWindow::on_regresar_clicked(){     //Al presionar el boton de regresar
@@ -259,6 +272,9 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    ui->avn2->hide() ;
 
+                   ui->texto_instrucciones->hide() ;
+
+                   ui->instrucciones->show() ;
 
 
 
@@ -303,7 +319,7 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    ui->cargar_partida->show() ;
                    GAME->val_btn_presionado = 1 ;      //Se le asigana 1 a la variable
-
+                   ui->instrucciones->hide() ;
 
                   }
                void MainWindow::on_nueva_partida_clicked(){        //Al presionar el boton de nueva partida
@@ -356,7 +372,7 @@ void MainWindow::Guardar_nuevo_jugador(){
                    }
 
                }
-               void MainWindow::set_interfaz_1(){      //Funcion que se ejecuta cuando el jueva va a comenzar (Esconde botones y demas)
+               void MainWindow::set_interfaz_1(){      //Funcion que se ejecuta cuando el juego va a comenzar (Esconde botones y demas)
 
                    ui->agregar_nombre->hide() ;
 
@@ -417,7 +433,11 @@ void MainWindow::Guardar_nuevo_jugador(){
                    if( GAME->Fin_partida ){
 
                        msc_2->stop() ;
-
+                       ui->Game_final->show() ;
+                       ui->Salir->show() ;
+                       GAME->tecleable = false ;
+                       end_game->stop() ;
+                       timer_spawn_enemy->stop() ;
                    }
 
                }
@@ -427,7 +447,102 @@ void MainWindow::Guardar_nuevo_jugador(){
                  end_game = new QTimer() ;
                  connect( end_game , SIGNAL( timeout() ) , this , SLOT( perdiste() ) ) ;
                  end_game->start( 10 ) ;
+                 GAME->tecleable = true ;
+                 timer_spawn_enemy = new QTimer() ;
+
+                 connect( timer_spawn_enemy , SIGNAL( timeout() ) , this , SLOT( spawn_enemigo() ) ) ;
+
+                 timer_spawn_enemy->start( 2500 ) ;
+
                  delete  GAME->menu ;
 
 
                 }
+               //Funcion para recibir las teclas presionadas
+
+
+
+               void MainWindow::keyPressEvent( QKeyEvent *teclas ){
+
+
+                   if( GAME->tecleable ){       //Condicion principal para teclear
+
+
+
+                       if( teclas->key() == Qt::Key_W ){                   //Arriba
+
+                           GAME->Main_player->movimientos_personaje( 0 ) ;
+                       }
+                       else if( teclas->key() == Qt::Key_S ){                  //Abajo
+
+                           GAME->Main_player->movimientos_personaje( 1 ) ;
+                       }
+                       else if( teclas->key() == Qt::Key_A ){                      //Izquierda
+
+                           GAME->Main_player->movimientos_personaje( 2 ) ;
+                       }
+                       else if( teclas->key() == Qt::Key_D ){                      //Derecha
+
+                           GAME->Main_player->movimientos_personaje( 3 ) ;
+                       }
+                       else if( teclas->key() == Qt::Key_E ){                  //Diagonal derecha - arriba
+
+                           GAME->Main_player->movimientos_personaje( 4 ) ;
+                       }
+                       else if( teclas->key() == Qt::Key_Q ){                      //Diagonal izquierda - Abajo
+
+                           GAME->Main_player->movimientos_personaje( 5 ) ;
+
+                       }
+                       else if( teclas->key() == Qt::Key_Space ){          //Disparar
+
+                       if( GAME->dis_paro ){
+
+                           GAME->disparar() ;
+
+                            GAME->dis_paro = false ;
+
+                            QTimer::singleShot( 500 , this, SLOT( barra_press() ) );
+                                      }
+                       }
+
+                   }//fin condicion
+}
+               void MainWindow::barra_press(){
+
+                   GAME->dis_paro = true ;
+
+               }
+
+
+               void MainWindow::spawn_enemigo(){
+
+                   int random_num1 = rand()%3 ;        //numero aleatorio entre 0 y 2
+
+                   int random_num2 = rand()%410 ;
+
+                   ENEmigos = new enemigos( random_num1 ) ;
+
+                   ENEmigos->set_enemigo() ;
+
+                   ENEmigos->setPos( 800 , random_num2 ) ;
+
+                   GAME->level_one->addItem( ENEmigos ) ;
+
+
+               }
+
+               void MainWindow::on_instrucciones_clicked(){
+
+                   ui->texto_instrucciones->show() ;
+
+                   ui->instrucciones->hide() ;
+
+                   ui->regresar->show() ;
+
+                   ui->Jugar->hide() ;
+
+                   ui->Multijugador->hide() ;
+
+                   ui->Salir->hide() ;
+               }
