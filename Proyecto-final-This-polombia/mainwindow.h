@@ -42,6 +42,8 @@ void on_cargar_partida_clicked();
 
 void set_interfaz_1() ;
 void on_aceptar_clicked();
+void perdiste() ;
+
 
 private:
 
@@ -50,5 +52,6 @@ juego *GAME ;   //Puntero al Juego principal
 QMediaPlayer *music , *msc_2 ;  //Punteros que almacenaran la musica del menu y cuando se esté jugando
 QSoundEffect *efecto_boton_click ;      //Puntero para loe efectos de sonido de click del menu
 QMessageBox * msg_box ;     //Puntero para crear los message box necesarios
+QTimer *end_game ;
 };
 #endif // MAINWINDOW_H
