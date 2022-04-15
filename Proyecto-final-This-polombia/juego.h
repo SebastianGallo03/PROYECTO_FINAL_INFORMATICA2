@@ -1,3 +1,4 @@
+//Proximamente
 #ifndef JUEGO_H
 #define JUEGO_H
 #include <QObject>

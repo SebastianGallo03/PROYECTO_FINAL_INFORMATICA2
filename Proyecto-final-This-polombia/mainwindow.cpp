@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "puntaje.h"
+
+extern puntaje *Score ;
+extern puntaje *player_name ;
+extern puntaje *health ;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -48,21 +53,11 @@ ui->nueva_partida->hide() ;
 
 ui->cargar_partida->hide() ;
 
-
-
-
-
-
-
  //Linea para Ingresar el nombre
 
 ui->agregar_nombre->setGeometry( (GAME->tam_X/2)-(GAME->btx/2) , ((GAME->tam_Y + 6*(GAME->bty))/2)-(GAME->bty/2) , GAME->btx , GAME->bty );
 
 ui->agregar_nombre->hide() ;
-
-
-
-
 
  //Boton aceptar
 
@@ -101,18 +96,29 @@ music->setMedia( QUrl("qrc:/Recursos/.mp3") ) ;
          ui->regresar->hide() ;
   music->setVolume(30) ;      //Definimos el nivel del volumen de la musica
   music->play() ;
+
   //Configuracion de la musica del juego
 
   msc_2 = new QMediaPlayer() ;
   msc_2->setMedia( QUrl("qrc:/Recursos/.mp3") ) ;
   msc_2->setVolume( 10 ) ;
+
   //Configuracion sonido de los botones del menu
 
       efecto_boton_click = new QSoundEffect ;
 
       efecto_boton_click->setSource( QUrl("qrc:/Recursos/hit-01.wav") );
       efecto_boton_click->setVolume( 0.20f ) ;    //Definimos el nivel del volumen del efecto de sonido
+      gameO_efecto = new QSoundEffect ;
+      gameO_efecto->setSource( QUrl("qrc:/Recursos/8-bit-game-over.wav") );
+      gameO_efecto->setVolume( 0.40f ) ;
 
+
+       //Configuracion del sonido de disparo
+
+       sonido_disparo = new QSoundEffect ;
+       sonido_disparo->setSource( QUrl("qrc:/Recursos/gun-shot.wav") ) ;
+       sonido_disparo->setVolume( 0.20f ) ;
 
              //configuracion botones seleccion de personaje
 
@@ -174,7 +180,7 @@ void MainWindow::Guardar_nuevo_jugador(){
                          arch_2.close() ;
                      }//fin if arch2
         if( GAME->existente_name ){     //Si el nombre no existe anteriormente, es creado y guardado
-            out << GAME->nombre_jugador.replace( " ", "_" ) << " Av:" << GAME->select_av << " N:" << GAME->nivel_jugador << " P:" << GAME->puntos_jugador << ";" ;
+            out << GAME->nombre_jugador.replace( " ", "_" ) << " Avn:" << GAME->select_av << " N:" << GAME->nivel_jugador << " P:" << GAME->puntos_jugador << ";" ;
 
                    out << "\n" ;
 
@@ -372,15 +378,20 @@ void MainWindow::Guardar_nuevo_jugador(){
                    }
 
                }
-               void MainWindow::set_interfaz_1(){      //Funcion que se ejecuta cuando el juego va a comenzar (Esconde botones y demas)
+               void MainWindow::set_interfaz_1(){      //Funcion que se ejecuta cuando el jueva va a comenzar (Esconde botones y demas)
 
                    ui->agregar_nombre->hide() ;
 
                    ui->aceptar->hide() ;
+
                    ui->texto1->hide() ;
+
                    ui->regresar->hide() ;
+
                    music->stop() ;
+
                    msc_2->play() ;
+
                    ui->graphicsView->setBackgroundBrush( Qt::black ) ;
                    ui->new_partida_txt->hide() ;
 
@@ -433,21 +444,36 @@ void MainWindow::Guardar_nuevo_jugador(){
                    if( GAME->Fin_partida ){
 
                        msc_2->stop() ;
+
+                       gameO_efecto->play() ;
+
                        ui->Game_final->show() ;
+
                        ui->Salir->show() ;
+
                        GAME->tecleable = false ;
+
                        end_game->stop() ;
+
                        timer_spawn_enemy->stop() ;
+
+                       Guardar_progerso() ;
+
                    }
 
                }
                void MainWindow::nivel_1(){     //Funcion para el nivel 1
                  GAME->set_level_one() ;
                  ui->graphicsView->setScene( GAME->level_one );
+
                  end_game = new QTimer() ;
+
                  connect( end_game , SIGNAL( timeout() ) , this , SLOT( perdiste() ) ) ;
+
                  end_game->start( 10 ) ;
+
                  GAME->tecleable = true ;
+
                  timer_spawn_enemy = new QTimer() ;
 
                  connect( timer_spawn_enemy , SIGNAL( timeout() ) , this , SLOT( spawn_enemigo() ) ) ;
@@ -455,6 +481,23 @@ void MainWindow::Guardar_nuevo_jugador(){
                  timer_spawn_enemy->start( 2500 ) ;
 
                  delete  GAME->menu ;
+                     Score = new puntaje() ;
+
+                     player_name = new puntaje() ;
+
+                     health = new puntaje() ;
+
+                     health->salud( 1 ) ;
+
+                     Score->aumentar_puntaje( 3 ) ;
+
+                     player_name->whos_playing( GAME->nombre_jugador ) ;
+
+                     GAME->level_one->addItem( Score ) ;
+
+                     GAME->level_one->addItem( player_name ) ;
+
+                     GAME->level_one->addItem( health ) ;
 
 
                 }
@@ -500,13 +543,74 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                            GAME->disparar() ;
 
-                            GAME->dis_paro = false ;
+                           sonido_disparo->play() ;
+
+                           GAME->dis_paro = false ;
 
                             QTimer::singleShot( 500 , this, SLOT( barra_press() ) );
                                       }
                        }
 
                    }//fin condicion
+               }
+
+               void MainWindow::Guardar_progerso(){
+
+                   QFile archivo( "guardado.txt" ) ;
+
+                   archivo.open( QFile::ReadOnly | QFile::Text ) ;
+
+                   QTextStream in( &archivo ) ;
+
+                   QString todo_el_archivo ;
+
+                   while( !in.atEnd() ){
+
+                       QString linea = in.readLine();
+
+                       QString comparacion ;
+
+                       comparacion = linea.section(" " , 0 , 0 ) ;
+
+                       if( comparacion == GAME->nombre_jugador ){
+
+                           QString reemplazo, avn , levl , points ;
+
+                           avn = QString::number( GAME->select_av ) ;
+
+                           levl = QString::number( GAME->nivel_jugador ) ;
+
+                           points = QString::number( puntos ) ;
+
+                           reemplazo = GAME->nombre_jugador + " Avn:" + avn + " N:" + levl + " P:" + points + ";" + '\n' ;
+
+                           todo_el_archivo.append( reemplazo ) ;
+
+                       }
+                       else{
+
+                          linea.append( '\n' ) ;
+
+                          todo_el_archivo.append( linea ) ;
+                       }
+
+
+                       archivo.close() ;
+
+
+
+                       QFile archivo2( "guardado.txt" ) ;
+
+                       archivo2.open( QFile::WriteOnly | QFile::Text ) ;
+
+                       QTextStream out( &archivo2 );
+
+                       out << todo_el_archivo ;
+
+                       archivo2.close() ;
+
+                   } //fin while
+
 }
                void MainWindow::barra_press(){
 
@@ -525,7 +629,16 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    ENEmigos->set_enemigo() ;
 
-                   ENEmigos->setPos( 800 , random_num2 ) ;
+                   if( random_num1 == 2 ){
+
+                         random_num2 = rand()%430 ;
+
+                         ENEmigos->setPos( 800 , random_num2 ) ;
+                      }
+                      else{
+
+                          ENEmigos->setPos( 800 , random_num2 ) ;
+                      }
 
                    GAME->level_one->addItem( ENEmigos ) ;
 
@@ -533,6 +646,7 @@ void MainWindow::Guardar_nuevo_jugador(){
                }
 
                void MainWindow::on_instrucciones_clicked(){
+                   efecto_boton_click->play() ;
 
                    ui->texto_instrucciones->show() ;
 
