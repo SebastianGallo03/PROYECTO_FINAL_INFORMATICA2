@@ -32,6 +32,7 @@ public:
  void keyPressEvent( QKeyEvent *teclas);
  void Guardar_progerso() ;
  void borrar_cambio_escena() ;
+ void multi_jugador() ;
 
    ~MainWindow();
 private slots:
@@ -51,6 +52,9 @@ void barra_press() ;
 void spawn_enemigo() ;
 void on_instrucciones_clicked();
 void update_nivel();
+void change_player_multiP() ;
+void perdiste_multiplayer() ;
+void final_multiP() ;
 
 private:
 

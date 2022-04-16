@@ -6,7 +6,7 @@ extern puntaje *health ;
 
 Jugador_1::Jugador_1( int n ){
 
-    //n == 0 ->Personaje 1 ; n== 1 -> personaje 2
+   //n == 1 ->Personaje 1 ; n== 2 -> personaje 2
     switch( n ){            //Alistamos los recursos necesarios para el sprite del jugador
      case 1:{ sprite_jugador.load(":/Recursos/avn_p1.png") ;
 
