@@ -2,9 +2,9 @@
     <qresource prefix="/">
         <file>Recursos/8-bit-game-over.wav</file>
         <file>Recursos/8-bit-kit-beep.wav</file>
+        <file>Recursos/avn_2.png</file>
         <file>Recursos/avn_p1.png</file>
         <file>Recursos/bcc_trns.png</file>
-        <file>Recursos/bit-vrc6-jojos-bizarre-adventure-golden-wind.mp3</file>
         <file>Recursos/boton_1jugador.png</file>
         <file>Recursos/boton_multijugador.png</file>
         <file>Recursos/btn_1player.png</file>
@@ -17,10 +17,10 @@
         <file>Recursos/btn_npartida.png</file>
         <file>Recursos/bullet.png</file>
         <file>Recursos/explosion.wav</file>
-        <file>Recursos/Fighting_Gold.mp3</file>
+        <file>Recursos/Fondo-Juego.mp3</file>
         <file>Recursos/Fondo-Menu.jpg</file>
+        <file>Recursos/Fondo-Menu.mp3</file>
         <file>Recursos/game_over.png</file>
-        <file>Recursos/giornos-theme.mp3</file>
         <file>Recursos/gun-shot.wav</file>
         <file>Recursos/hit-01.wav</file>
         <file>Recursos/instrucciones.png</file>
@@ -43,6 +43,5 @@
         <file>Recursos/txt_pregunta.png</file>
         <file>Recursos/W_p1.png</file>
         <file>Recursos/W_p2.png</file>
-        <file>Recursos/avn_2.png</file>
     </qresource>
 </RCC>
