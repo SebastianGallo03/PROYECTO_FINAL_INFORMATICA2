@@ -18,6 +18,8 @@ public:
         int vel_0y = 1 , vel_0x = 2 , G = 1 , pos_0x , pos_0y , T = 50  ;
 
         bool GAME_OVER = false , choque = true ;
+        QTimer *animacion, *caida_libre ;     //Timer para la animacion del personaje
+
         unsigned long long n = 0 ;
 
     public slots:
@@ -28,7 +30,6 @@ public:
         void tiempo_inmunidad() ;
     private:
         QPixmap sprite_jugador , sprite_actual ;        //Aqui se guardan los sprites del personaje
-        QTimer *animacion, *caida_libre ;     //Timer para la animacion del personaje
         QList<QGraphicsItem*> colisiones ;
         QSoundEffect *perder_vida ;
       };

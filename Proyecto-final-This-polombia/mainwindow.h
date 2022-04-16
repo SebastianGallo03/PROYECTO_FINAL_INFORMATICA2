@@ -31,6 +31,8 @@ public:
  void nivel_1() ;        //Configuracion para el nivel 1 del juego
  void keyPressEvent( QKeyEvent *teclas);
  void Guardar_progerso() ;
+ void borrar_cambio_escena() ;
+
    ~MainWindow();
 private slots:
  //Slots de los botones de la interfaz
@@ -48,13 +50,13 @@ void perdiste() ;
 void barra_press() ;
 void spawn_enemigo() ;
 void on_instrucciones_clicked();
-
+void update_nivel();
 
 private:
 
 Ui::MainWindow *ui;
 juego *GAME ;   //Puntero al Juego principal
-QMediaPlayer *music , *msc_2 ;  //Punteros que almacenaran la musica del menu y cuando se esté jugando
+QMediaPlayer *music , *msc_2, *ending_theme, *lvl_cambio ;  //Punteros que almacenaran la musica del menu y cuando se esté jugando
  QSoundEffect *efecto_boton_click, *gameO_efecto, *sonido_disparo ;      //Puntero para lo efectos de sonido de click del menu
 QMessageBox * msg_box ;     //Puntero para crear los message box necesarios
 QTimer *end_game , *timer_spawn_enemy ;

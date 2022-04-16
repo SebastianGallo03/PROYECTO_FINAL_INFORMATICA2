@@ -30,7 +30,6 @@
         <file>Recursos/lushlife-levelup.wav</file>
         <file>Recursos/mision_completa.png</file>
         <file>Recursos/mission-complete.mp3</file>
-        <file>Recursos/mistaplane.png</file>
         <file>Recursos/New_enemigo_100.png</file>
         <file>Recursos/new_enemigo_150.png</file>
         <file>Recursos/new_enemigo_200.png</file>
@@ -44,5 +43,6 @@
         <file>Recursos/txt_pregunta.png</file>
         <file>Recursos/W_p1.png</file>
         <file>Recursos/W_p2.png</file>
+        <file>Recursos/avn_2.png</file>
     </qresource>
 </RCC>

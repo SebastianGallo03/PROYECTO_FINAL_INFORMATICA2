@@ -21,7 +21,7 @@ public:
     void set_enemigo() ;
 
     int frame = 0 ;
-
+    QTimer *timer_enemy ;
 public slots:
 
     void movimiento_enemigos() ;
@@ -37,8 +37,6 @@ private:
     unsigned long long t_disc = 0 ;
 
     bool collide = true ;
-
-    QTimer *timer_enemy ;
 
     QList<QGraphicsItem*> colisiones ;
     QSoundEffect *explosion ;

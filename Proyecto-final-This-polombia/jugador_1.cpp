@@ -13,7 +13,7 @@ Jugador_1::Jugador_1( int n ){
     }break;
     case 2:{
 
-                sprite_jugador.load(":/Recursos/avn_p2.png") ;
+                sprite_jugador.load(":/Recursos/avn_2.png") ;
 
             }break;
 

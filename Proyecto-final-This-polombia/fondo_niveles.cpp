@@ -13,7 +13,7 @@ Fondo_niveles::Fondo_niveles( int n_level ){
 
        escenario_1.load(":/Recursos/stage1.png") ;
 
-       milsec = 45 ;
+       milsec = 100 ;
 
     }
     else if( n_level == 2 ){
@@ -64,15 +64,15 @@ void Fondo_niveles::frames(){
 
     frame++ ;
 
-    if( num_escenario == 3 && frame == 120 ){   //120 frames
+    if( num_escenario == 3 && frame == 29 ){   //29 frames
 
         frame = 0 ;
     }
-    else if( num_escenario == 2 && frame == 60 ){      //60 frames
+    else if( num_escenario == 2 && frame == 19 ){      //19 frames
 
         frame = 0 ;
 
-    }else if( num_escenario == 1 && frame == 129 ){     //129 frames
+    }else if( num_escenario == 1 && frame == 14 ){     //14 frames
 
         frame = 0 ;
 
