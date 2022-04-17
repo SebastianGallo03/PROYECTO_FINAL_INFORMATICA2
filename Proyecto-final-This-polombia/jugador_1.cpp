@@ -86,7 +86,7 @@ Jugador_1::Jugador_1( int n ){
 
                     GAME_OVER = health->salud( 0 ) ;
 
-                    perder_vida->play() ;
+                    if(!GAME_OVER) perder_vida->play() ;
 
                     if( GAME_OVER ){
 

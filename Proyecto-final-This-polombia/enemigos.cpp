@@ -109,12 +109,10 @@ void enemigos::movimiento_enemigos(){
     px = this->x() ;
 
     py = this->y() ;
-
     if( n == 0 ){
 
-            setPos( px - 5 , py ) ;
-
-        }
+        setPos( px , py+5 ) ;
+    }
         else if( n == 1 ){
 
 
@@ -140,6 +138,15 @@ void enemigos::movimiento_enemigos(){
         scene()->removeItem( this ) ;
 
         delete this ;
+    }
+
+    int flag2= this->y();
+
+    if(flag2>500){
+
+        scene()->removeItem(this);
+
+        delete this;
     }
 
 }

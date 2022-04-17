@@ -748,6 +748,11 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                          ENEmigos->setPos( 800 , random_num2 ) ;
                       }
+                   else if(random_num1==0)
+                   {
+                       random_num2= rand()%720;
+                       ENEmigos->setPos(random_num2, 0);
+                   }
                       else{
 
                           ENEmigos->setPos( 800 , random_num2 ) ;
