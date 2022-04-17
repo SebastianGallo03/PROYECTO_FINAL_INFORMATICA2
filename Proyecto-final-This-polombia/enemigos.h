@@ -34,7 +34,7 @@ private:
 
     int tX , tY , n , T = 30 ;
 
-    unsigned long long t_disc = 0 ;
+    unsigned long long t_disc = 0, t_disc1=0 ;
 
     bool collide = true ;
 

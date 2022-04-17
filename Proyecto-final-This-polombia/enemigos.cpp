@@ -113,23 +113,30 @@ void enemigos::movimiento_enemigos(){
 
         setPos( px , py+5 ) ;
     }
-        else if( n == 1 ){
+    else if( n == 1 ){
 
+        double pos_y = 0;
 
-            setPos( px - 8 , py ) ;
+        pos_y = 5*qSin( 4*t_disc1*(0.001*T) ) ;
+        t_disc1++ ;
+        setPos( px - 5 , py + pos_y) ;
 
-        }
-        else if( n == 2 ){
+    }
+    else if( n == 2 ){
 
+        double pos_x=0;
 
-            double pos_y = 5*qSin( 4*t_disc*(0.001*T) ) ;
+        double pos_y=0;
 
-            setPos( px - 5 , py + pos_y ) ;
+        pos_x = 5*qCos(4*t_disc*(0.001*T));
 
-            t_disc++ ;
+        pos_y = 5*qSin( 4*t_disc*(0.001*T) ) ;
 
-        }
+        t_disc++;
 
+        setPos( px - 1 - pos_x , py + pos_y ) ;
+
+}
 
     int flag = this->x() + 62 ;
 
