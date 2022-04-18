@@ -32,7 +32,7 @@ private:
 
     QPixmap sprites1, enemy ;
 
-    int tX , tY , n , T = 30 ;
+    int tX , tY , n, amplitud , T = 30 ;
 
     unsigned long long t_disc = 0, t_disc1=0 ;
 

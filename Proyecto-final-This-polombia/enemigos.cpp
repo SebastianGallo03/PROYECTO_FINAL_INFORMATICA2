@@ -23,6 +23,8 @@ enemigos::enemigos( int n_enemy ){
 
         tY = 50 ;
 
+        amplitud=rand()%3;
+
         n = 1 ;
     }
     else if( n_enemy == 2 ){
@@ -32,6 +34,8 @@ enemigos::enemigos( int n_enemy ){
         tX = 62 ;
 
         tY = 58 ;
+
+        amplitud=rand()%3;
 
         n = 2 ;
     }
@@ -113,30 +117,63 @@ void enemigos::movimiento_enemigos(){
 
         setPos( px , py+5 ) ;
     }
+
     else if( n == 1 ){
 
         double pos_y = 0;
 
-        pos_y = 5*qSin( 4*t_disc1*(0.001*T) ) ;
+        if (amplitud==0)pos_y = 5*qSin( 4*t_disc1*(0.001*T) ) ;
+
+        else if(amplitud==1)pos_y = 8*qSin( 4*t_disc1*(0.001*T) ) ;
+
+        else if(amplitud==2)pos_y = 10*qSin( 4*t_disc1*(0.001*T) ) ;
+
+
         t_disc1++ ;
+
+        if(t_disc1==43)
+        {
+            t_disc1=0;
+        }
         setPos( px - 5 , py + pos_y) ;
 
     }
     else if( n == 2 ){
 
         double pos_x=0;
-
         double pos_y=0;
 
-        pos_x = 5*qCos(4*t_disc*(0.001*T));
+        if (amplitud==0){
 
-        pos_y = 5*qSin( 4*t_disc*(0.001*T) ) ;
+            pos_x = 5*qCos(4*t_disc*(0.001*T));
+
+            pos_y = 5*qSin( 4*t_disc*(0.001*T) ) ;
+        }
+        else if(amplitud==1)
+        {
+            pos_x = 8*qCos(4*t_disc*(0.001*T));
+
+            pos_y = 8*qSin( 4*t_disc*(0.001*T) ) ;
+
+        }
+        else if(amplitud==2)
+        {
+            pos_x = 10*qCos(4*t_disc*(0.001*T));
+
+            pos_y = 10*qSin( 4*t_disc*(0.001*T) ) ;
+        }
+        if(t_disc==43)
+        {
+            t_disc=0;
+        }
 
         t_disc++;
 
-        setPos( px - 1 - pos_x , py + pos_y ) ;
+        setPos( px - 3 - pos_x , py + pos_y ) ;
 
-}
+    }
+
+
 
     int flag = this->x() + 62 ;
 
