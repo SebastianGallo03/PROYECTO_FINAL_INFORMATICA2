@@ -783,7 +783,6 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    if( !GAME->epic_fail ){
 
-
                        if( GAME->nivel_jugador < 3 ){
 
                            GAME->tecleable = false ;

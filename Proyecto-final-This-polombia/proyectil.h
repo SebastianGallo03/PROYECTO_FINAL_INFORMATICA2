@@ -16,7 +16,7 @@ class proyectil: public QObject, public QGraphicsPixmapItem
 
 public:
 
-    proyectil();
+    proyectil(int a);
 
 
 public slots:
@@ -28,7 +28,6 @@ private:
     QPixmap bullet ;
 
     QTimer *timer_bala ;
-
 
 };
 

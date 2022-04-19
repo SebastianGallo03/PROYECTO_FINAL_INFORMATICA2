@@ -23,6 +23,12 @@ enemigos::enemigos( int n_enemy ){
 
         tY = 50 ;
 
+        bala_enemy= new QTimer;
+
+        connect( bala_enemy , SIGNAL( timeout() ) , this , SLOT( movimiento_bala() ) ) ;
+
+        bala_enemy->start( 500 ) ;
+
         amplitud=rand()%3;
 
         n = 1 ;
@@ -87,6 +93,7 @@ void enemigos::movimiento_enemigos(){
 
 
         if( (typeid( *( colisiones[i] )  ) ==  typeid( proyectil )) && collide ){
+
             Score->aumentar_puntaje( n ) ;
             explosion->play() ;
 
@@ -192,7 +199,21 @@ void enemigos::movimiento_enemigos(){
 
         delete this;
     }
+}
 
+void enemigos::movimiento_bala()
+{
+    int px , py ;
+
+    px = this->x() + 50 ;
+
+    py = this->y() + 39 ;
+
+    bala = new proyectil_en ;
+
+    bala->setPos( px , py ) ;
+
+    scene()->addItem( bala ) ;
 }
 
 void enemigos::muerte(){

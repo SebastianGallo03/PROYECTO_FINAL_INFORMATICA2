@@ -1,11 +1,13 @@
 #include "proyectil.h"
 #include "enemigos.h"
 
-proyectil::proyectil(){
+proyectil::proyectil(int a){
 
     bullet.load(":/Recursos/bullet.png") ;
 
     timer_bala = new QTimer() ;
+
+    //identificador=a;
 
     connect( timer_bala , SIGNAL( timeout() ) , this , SLOT( movimiento_bala() ) ) ;
 
@@ -16,10 +18,23 @@ proyectil::proyectil(){
 
 void proyectil::movimiento_bala(){
 
+
     setPos( this->x() + 15 , this->y() ) ;
 
     setPixmap( bullet.scaled( 15 , 15 ) ) ;
 
+   /* if(identificador==0){
+
+    setPos( this->x() + 15 , this->y() ) ;
+
+    setPixmap( bullet.scaled( 15 , 15 ) ) ;
+}
+    else if(identificador==1){
+
+        setPos( this->x() - 15 , this->y() ) ;
+
+        setPixmap( bullet.scaled( 15 , 15 ) ) ;
+    }*/
 
     if( this->x() > 800 ){
 
@@ -28,6 +43,13 @@ void proyectil::movimiento_bala(){
         delete this ;
 
     }
+
+   /* if(this->x()<0)
+    {
+        scene()->removeItem(this);
+
+        delete this;
+    }*/
 
 
 }
