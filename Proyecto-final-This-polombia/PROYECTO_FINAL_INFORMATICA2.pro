@@ -16,6 +16,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     proyectil.cpp  \
+    proyectil_en.cpp \
     puntaje.cpp   \
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     jugador_1.h \
     mainwindow.h \
     proyectil.h \
+    proyectil_en.h \
     puntaje.h \
 
 FORMS += \

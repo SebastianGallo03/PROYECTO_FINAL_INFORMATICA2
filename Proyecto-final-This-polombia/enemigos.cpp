@@ -1,13 +1,17 @@
 #include "enemigos.h"
 #include "proyectil.h"
 #include "puntaje.h"
+#include "proyectil_en.h"
+
 extern puntaje *Score ;
 
-enemigos::enemigos( int n_enemy ){
+enemigos::enemigos( int n_enemy, int nivel ){
+
+    shoot=rand()%2;
 
     if( n_enemy == 0 ){
 
-       sprites1.load(":/Recursos/New_enemigo_100.png") ;
+        sprites1.load(":/Recursos/New_enemigo_100.png") ;
 
         tX = 61 ;
 
@@ -17,7 +21,7 @@ enemigos::enemigos( int n_enemy ){
     }
     else if( n_enemy == 1 ){
 
-       sprites1.load(":/Recursos/new_enemigo_150.png") ;
+        sprites1.load(":/Recursos/new_enemigo_150.png") ;
 
         tX = 60 ;
 
@@ -29,15 +33,27 @@ enemigos::enemigos( int n_enemy ){
     }
     else if( n_enemy == 2 ){
 
+
         sprites1.load(":/Recursos/new_enemigo_200.png") ;
 
         tX = 62 ;
+
 
         tY = 58 ;
 
         amplitud=rand()%3;
 
         n = 2 ;
+
+    }
+
+    if(n!=0 && shoot==1)
+    {
+        bala_enemy= new QTimer;
+
+        connect( bala_enemy , SIGNAL( timeout() ) , this , SLOT( movimiento_bala() ) ) ;
+
+        bala_enemy->start( 1500-(300*nivel) ) ;
     }
 
     timer_enemy = new QTimer() ;
@@ -46,11 +62,11 @@ enemigos::enemigos( int n_enemy ){
 
     timer_enemy->start( T ) ;
 
-        explosion = new QSoundEffect ;
+    explosion = new QSoundEffect ;
 
-        explosion->setSource( QUrl("qrc:/Recursos/explosion.wav") ) ;
+    explosion->setSource( QUrl("qrc:/Recursos/explosion.wav") ) ;
 
-        explosion->setVolume( 0.20f ) ;
+    explosion->setVolume( 0.20f ) ;
 
 }
 
@@ -85,18 +101,26 @@ void enemigos::movimiento_enemigos(){
 
     for( int i = 0 , nl = colisiones.size() ; i < nl ; i++ ){
 
-
         if( (typeid( *( colisiones[i] )  ) ==  typeid( proyectil )) && collide ){
+
             Score->aumentar_puntaje( n ) ;
+
             explosion->play() ;
 
             scene()->removeItem( colisiones[i] ) ;
 
             delete colisiones[i] ;
 
+            if(n!=0 && shoot==1){
+
+            bala_enemy->stop();
+            delete bala_enemy;
+            }
+
             frame = 1 ;
 
             set_enemigo() ;
+
             collide = false ;
 
             QTimer::singleShot( 800 , this, SLOT( muerte() ) );
@@ -113,28 +137,48 @@ void enemigos::movimiento_enemigos(){
     px = this->x() ;
 
     py = this->y() ;
+
+
     if( n == 0 ){
 
         setPos( px , py+5 ) ;
-    }
 
+    }
     else if( n == 1 ){
 
         double pos_y = 0;
 
-        if (amplitud==0)pos_y = 5*qSin( 4*t_disc1*(0.001*T) ) ;
+        if (amplitud==0){
+            pos_y = 5*qSin( 4*t_disc1*(0.001*T) ) ;
 
-        else if(amplitud==1)pos_y = 8*qSin( 4*t_disc1*(0.001*T) ) ;
+            if(t_disc1==43)
+            {
+                t_disc1=0;
+            }
 
-        else if(amplitud==2)pos_y = 10*qSin( 4*t_disc1*(0.001*T) ) ;
+        }
+
+        else if(amplitud==1){
+            pos_y = 8*qSin( 4*t_disc1*(0.001*T) ) ;
+            if(t_disc1==45)
+            {
+                t_disc1=0;
+            }
+
+        }
+
+        else if(amplitud==2){
+            pos_y = 10*qSin( 4*t_disc1*(0.001*T) ) ;
+            if(t_disc1==45)
+            {
+                t_disc1=0;
+            }
+        }
+
 
 
         t_disc1++ ;
 
-        if(t_disc1==43)
-        {
-            t_disc1=0;
-        }
         setPos( px - 5 , py + pos_y) ;
 
     }
@@ -148,12 +192,20 @@ void enemigos::movimiento_enemigos(){
             pos_x = 5*qCos(4*t_disc*(0.001*T));
 
             pos_y = 5*qSin( 4*t_disc*(0.001*T) ) ;
+            if(t_disc==43)
+            {
+                t_disc=0;
+            }
         }
         else if(amplitud==1)
         {
             pos_x = 8*qCos(4*t_disc*(0.001*T));
 
             pos_y = 8*qSin( 4*t_disc*(0.001*T) ) ;
+            if(t_disc==45)
+            {
+                t_disc=0;
+            }
 
         }
         else if(amplitud==2)
@@ -161,10 +213,11 @@ void enemigos::movimiento_enemigos(){
             pos_x = 10*qCos(4*t_disc*(0.001*T));
 
             pos_y = 10*qSin( 4*t_disc*(0.001*T) ) ;
-        }
-        if(t_disc==43)
-        {
-            t_disc=0;
+
+            if(t_disc==45)
+            {
+                t_disc=0;
+            }
         }
 
         t_disc++;
@@ -193,6 +246,21 @@ void enemigos::movimiento_enemigos(){
         delete this;
     }
 
+}
+
+void enemigos::movimiento_bala()
+{
+    int px , py ;
+
+    px = this->x() + 50 ;
+
+    py = this->y() + 39 ;
+
+    bala = new proyectil_en ;
+
+    bala->setPos( px , py ) ;
+
+    scene()->addItem( bala ) ;
 }
 
 void enemigos::muerte(){

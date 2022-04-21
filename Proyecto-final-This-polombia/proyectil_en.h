@@ -1,5 +1,5 @@
-#ifndef PROYECTIL_H
-#define PROYECTIL_H
+#ifndef PROYECTIL_EN_H
+#define PROYECTIL_EN_H
 
 #include <QObject>
 #include <QGraphicsPixmapItem>
@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <QGraphicsScene>
 
-class proyectil: public QObject, public QGraphicsPixmapItem
+class proyectil_en: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
@@ -16,7 +16,7 @@ class proyectil: public QObject, public QGraphicsPixmapItem
 
 public:
 
-    proyectil();
+    proyectil_en();
 
 
 public slots:
@@ -30,5 +30,4 @@ private:
     QTimer *timer_bala ;
 
 };
-
-#endif // PROYECTIL_H
+#endif // PROYECTIL_EN_H

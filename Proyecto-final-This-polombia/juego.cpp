@@ -57,7 +57,7 @@ void juego::escena_Menu(){
 
        py = Main_player->y() + 39 ;
 
-       disparo = new proyectil ;
+       disparo = new proyectil;
 
        disparo->setPos( px , py ) ;
 

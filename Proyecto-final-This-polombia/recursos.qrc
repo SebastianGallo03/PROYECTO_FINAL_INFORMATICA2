@@ -43,5 +43,6 @@
         <file>Recursos/txt_pregunta.png</file>
         <file>Recursos/W_p1.png</file>
         <file>Recursos/W_p2.png</file>
+        <file>Recursos/bullet_2.png</file>
     </qresource>
 </RCC>
