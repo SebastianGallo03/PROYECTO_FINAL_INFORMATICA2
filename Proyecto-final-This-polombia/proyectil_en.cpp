@@ -2,11 +2,9 @@
 
 proyectil_en::proyectil_en(){
 
-    bullet.load(":/Recursos/bullet.png") ;
+    bullet.load(":/Recursos/bullet_2.png") ;
 
     timer_bala = new QTimer() ;
-
-    //identificador=a;
 
     connect( timer_bala , SIGNAL( timeout() ) , this , SLOT( movimiento_bala() ) ) ;
 

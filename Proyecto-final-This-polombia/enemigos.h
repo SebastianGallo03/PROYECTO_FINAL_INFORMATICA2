@@ -2,9 +2,7 @@
 #define ENEMIGOS_H
 
 #include <QObject>
-#include "proyectil_en.h"
 #include <QGraphicsPixmapItem>
-#include "proyectil.h"
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
@@ -12,19 +10,25 @@
 #include <QList>
 #include <qmath.h>
 #include <QSoundEffect>
+#include "proyectil.h"
+#include "proyectil_en.h"
+
 class enemigos: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 
 public:
 
-    enemigos( int n_enemy );
+    enemigos( int n_enemy, int nivel );
 
     void set_enemigo() ;
 
-    int frame = 0 ;
+    int amplitud,frame = 0 ;
+
     QTimer *timer_enemy ;
+
     QTimer *bala_enemy;
+
 public slots:
 
     void movimiento_enemigos() ;
@@ -37,17 +41,20 @@ private:
 
     QPixmap sprites1, enemy ;
 
-    int tX , tY , n, amplitud , T = 30 ;
+    int tX , tY , n, shoot , T = 30 ;
 
-    unsigned long long t_disc = 0, t_disc1=0 ;
+    unsigned long long t_disc=0 ,t_disc1 = 0;
 
     bool collide = true ;
+
+
 
     QList<QGraphicsItem*> colisiones ;
 
     QSoundEffect *explosion ;
 
     proyectil_en *bala;
+
 };
 
 #endif // ENEMIGOS_H

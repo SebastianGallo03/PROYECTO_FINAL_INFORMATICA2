@@ -16,7 +16,7 @@ class proyectil: public QObject, public QGraphicsPixmapItem
 
 public:
 
-    proyectil(int a);
+    proyectil();
 
 
 public slots:

@@ -1,13 +1,11 @@
 #include "proyectil.h"
 #include "enemigos.h"
 
-proyectil::proyectil(int a){
+proyectil::proyectil(){
 
     bullet.load(":/Recursos/bullet.png") ;
 
     timer_bala = new QTimer() ;
-
-    //identificador=a;
 
     connect( timer_bala , SIGNAL( timeout() ) , this , SLOT( movimiento_bala() ) ) ;
 

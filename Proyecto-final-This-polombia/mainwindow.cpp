@@ -413,14 +413,22 @@ void MainWindow::Guardar_nuevo_jugador(){
                    efecto_boton_click->play() ;
 
                    ui->Jugar->hide() ;
+
                    ui->Multijugador->hide() ;
+
                    ui->Salir->hide() ;
+
                    ui->regresar->show() ;
+
                    ui->nueva_partida->show() ;
 
                    ui->cargar_partida->hide() ;
+
                    GAME->val_btn_presionado = 1 ;      //Se le asigana 1 a la variable
+
                    ui->instrucciones->hide() ;
+
+                   ui->rush_multip->show() ;
 
                   }
                void MainWindow::on_nueva_partida_clicked(){        //Al presionar el boton de nueva partida
@@ -477,8 +485,6 @@ void MainWindow::Guardar_nuevo_jugador(){
                            ui->agregar_nombre->show() ;
                            GAME->condicion_aceptar = false ;
                        }break;
-                      // case 1:{        //multijugador
-                     //  }break;
                    }
 
                }
@@ -736,29 +742,26 @@ void MainWindow::Guardar_nuevo_jugador(){
 
                    int random_num1 = rand()%3 ;        //numero aleatorio entre 0 y 2
 
-                   int random_num2 = rand()%410 ;
+                   int random_num2 = rand()%360 ;
 
-                   ENEmigos = new enemigos( random_num1 ) ;
+                   ENEmigos = new enemigos( random_num1, GAME->nivel_jugador ) ;
 
                    ENEmigos->set_enemigo() ;
 
-                   if( random_num1 == 2 ){
-
-                         random_num2 = rand()%420 ;
-
-                         ENEmigos->setPos( 800 , random_num2 ) ;
-                      }
-                   else if(random_num1==0)
+                   if(random_num1==0)
                    {
                        random_num2= rand()%720;
                        ENEmigos->setPos(random_num2, 0);
                    }
-                      else{
+                   else{
+                       if(ENEmigos->amplitud==1 && (random_num2>345))random_num2=random_num2-18;
+                       else if(ENEmigos->amplitud==2 && (random_num2>345))random_num2=random_num2-20;
 
-                          ENEmigos->setPos( 800 , random_num2 ) ;
-                      }
+                       ENEmigos->setPos( 800 , random_num2 ) ;
+                   }
 
                    GAME->level_one->addItem( ENEmigos ) ;
+
 
 
                }

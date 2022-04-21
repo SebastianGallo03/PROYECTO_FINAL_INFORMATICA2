@@ -79,7 +79,7 @@ Jugador_1::Jugador_1( int n ){
             for( int i = 0 , nl = colisiones.size() ; i < nl ; i++ ){
 
 
-                if( (typeid( *( colisiones[i] )  ) ==  typeid( enemigos )) && choque ){
+                if( ((typeid( *( colisiones[i] )  ) ==  typeid( enemigos )) && choque)||((typeid( *( colisiones[i] )  ) ==  typeid( proyectil_en )) && choque)){
 
 
                     choque = false ;
